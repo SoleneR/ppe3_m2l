@@ -1,11 +1,11 @@
 <?php
 session_start();
-require_once '../data/pdogsbrapports.php';
+require_once '../data/pdoM2l.php';
 $login = $_REQUEST['login'];
 $mdp = $_REQUEST['mdp'];
 
 
-$pdo= PdoGsbRapports::getPdo();
+$pdo= PdoM2l::getPdo();
 $user=$pdo->getUser($login,$mdp);
 
 if($user != NULL)

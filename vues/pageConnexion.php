@@ -1,4 +1,4 @@
-<div data-role="page" id="pageconnexion">
+<div data-role="page" id="pageConnexion">
     <?php
         include "vues/entetehtml.html";
     ?>

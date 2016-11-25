@@ -1,8 +1,11 @@
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+<div data-role= "page" id = "pageAccueil"> 
+    <?php 
+        //include "vues/entetehtml.html"; 
+    ?> 
+    <div data-role = "content"> 
+   
+    </div> <!-- /fin content --> 
+        <?php 
+            //include "vues/piedshtml.html"; 
+        ?> 
+</div> <!-- /fin page -->

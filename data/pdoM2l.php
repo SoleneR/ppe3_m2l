@@ -30,6 +30,7 @@ class PdoM2l{
 		$req = "select id, level, name from mrbs_users where name = :login and password = :mdp";
                 $stm = self::$monPdo->prepare($req);
                 $stm->bindParam(':login', $login);
+                $mdp=MD5($mdp);
                 $stm->bindParam(':mdp', $mdp);
                 $stm->execute();
         	$laLigne = $stm->fetch();
