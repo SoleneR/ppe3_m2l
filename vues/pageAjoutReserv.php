@@ -1,8 +1,9 @@
-<div data-role= "page" id = "pageAccueil"> 
+<div data-role= "page" id = "pageAjoutReserv"> 
     <?php 
         include "vues/entetePage.html"; 
     ?> 
     <div data-role = "content"> 
+        
    
     </div> <!-- /fin content --> 
         <?php 
