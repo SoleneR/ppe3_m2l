@@ -8,7 +8,7 @@ $mdp = $_REQUEST['mdp'];
 $pdo= PdoGsbRapports::getPdo();
 $user=$pdo->getUser($login,$mdp);
 
-if($visiteur != NULL)
+if($user != NULL)
 {
     $_SESSION['mrbs_users']=$user;
     $_SESSION['mrbs_users']['login']=$login;
@@ -16,5 +16,5 @@ if($visiteur != NULL)
     
 }
 
-echo json_encode($visiteur);
+echo json_encode($user);
 ?>
