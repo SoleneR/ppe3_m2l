@@ -1,3 +1,20 @@
 <?php
+session_start();
+require_once '../data/pdogsbrapports.php';
+$login = $_REQUEST['login'];
+$mdp = $_REQUEST['mdp'];
 
+
+$pdo= PdoGsbRapports::getPdo();
+$user=$pdo->getUser($login,$mdp);
+
+if($visiteur != NULL)
+{
+    $_SESSION['mrbs_users']=$user;
+    $_SESSION['mrbs_users']['login']=$login;
+    $_SESSION['mrbs_users']['mdp']=$mdp;
+    
+}
+
+echo json_encode($visiteur);
 ?>

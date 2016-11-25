@@ -1,6 +1,6 @@
 <div data-role="page" id="pageconnexion">
     <?php
-        include "vues/entetepage.html";
+        include "vues/entetehtml.html";
     ?>
         <div data-role="content" id="divconnexion">
             <?php
@@ -21,6 +21,6 @@
           
         </div><!-- /content -->
         <?php
-            include "vues/piedpage.html";
+            //include "vues/piedpage.html";
         ?>
 </div><!-- /page 1 -->
