@@ -1,4 +1,4 @@
-<div data-role= "page" id = "pageAgendaJour"> 
+<div data-role="page" id ="pageAgendaJour"> 
     <?php 
         include "vues/entetePage.html"; 
     ?> 

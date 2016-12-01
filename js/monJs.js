@@ -13,7 +13,7 @@ $(function(){
     
     function foncRetourConnexion(data){
             if(data != null){
-                $.mobile.changePage("#pageAccueil");
+                $.mobile.changePage("#pageAgendaJour");
              }
              else{
                 $("#pageConnexion #message").css({color:'red'});
