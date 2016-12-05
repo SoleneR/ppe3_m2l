@@ -1,4 +1,4 @@
-<div data-role="page" id="pageConnexion">
+<div data-role="page" data-theme="b" id="pageConnexion">
     <?php
         include "vues/entetehtml.html";
     ?>
@@ -7,23 +7,21 @@
                 <h1 id="titrePageConnexion">Connexion</h1>
             </div>
             
-            <?php
-                include "vues/logo.html";
-            ?>
             <div class="ui-field-contain">
-                <p>Connectez-vous pour accéder au système de réservations de salles de la Maison des Ligues</p>
-                <label for="login">Nom :</label>
+                <p style="text-align:center;">Connectez-vous pour accéder au système de réservations de salles de la Maison des Ligues</p>
+                <label for="login" style="text-align:left;">Nom :</label>
                 <input type="text" name="login" id="login" value=""/>
-                <label for="mdp">Mot de passe :</label>
+                <label for="mdp" style="text-align:left;">Mot de passe :</label>
                 <input type="password" name="mdp" id="mdp" value=""/>
             </div>
+                                   
             <div id="message">  </div>
                 <p>
                     <a href="#" data-role="button" id="btnconnexion" data-line="true">
                         S'identifier
                     </a>
                 </p>
-          
+          <?php   include "vues/logo.html";   ?>
         </div><!-- /content -->
         <?php
             //include "vues/piedpage.html";
