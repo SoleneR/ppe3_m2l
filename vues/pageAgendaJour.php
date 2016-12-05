@@ -107,3 +107,6 @@
             include "vues/piedsPage.html"; 
         ?> 
 </div> <!-- /fin page -->
+
+
+<:-- Bento-->
