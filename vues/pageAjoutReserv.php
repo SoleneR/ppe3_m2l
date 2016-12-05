@@ -1,4 +1,4 @@
-<div data-role= "page" id = "pageAjoutReserv"> 
+<div data-role= "page" id = "pageAjoutReserv" data-theme="b"> 
     <?php 
         include "vues/entetePage.html"; 
     ?> 
