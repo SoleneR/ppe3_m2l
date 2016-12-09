@@ -1,4 +1,4 @@
-<div data-role= "page" id = "pageAjoutReserv" data-theme="b"> 
+<div data-role= "page" id="pageAjoutReserv" data-theme="b"> 
     <?php 
         include "vues/entetePage.html"; 
     ?> 
@@ -77,6 +77,10 @@
         
         
         
+        
+        <a href ="#" data-role="button" id="btnEnregistrerAjout" data-inline="true">
+                    Enregistrer
+        </a>
    
     </div> <!-- /fin content --> 
         <?php 
