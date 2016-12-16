@@ -27,7 +27,6 @@ $(function(){
         var end_time = $("#pageAjoutReserv #hfin").val();
         var name = $("#pageAjoutReserv #ltDescr").val();
         var description = $("#pageAjoutReserv #descrComplete").val();
-        var start_time = $("#pageAjoutReserv #hdebut").val();
         $.post("ajax/traiterAjoutReservation.php", {
             "hdebut" : start_time,
             "hfin" : end_time,
