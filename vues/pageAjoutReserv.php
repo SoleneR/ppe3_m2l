@@ -61,7 +61,7 @@
         <form>
             <select id="types" name="types" data-mini="true" data-inline="true">
                 <option value="">Régulier</option>
-                <option value="">Occasionnel/option>
+                <option value="">Occasionnel</option>
             </select>
         </form>
         
@@ -71,16 +71,55 @@
                 <input type="radio" name="radioChoix" id="radioChoixC" value="Confirmé"  checked="checked">
                 <label for="radioChoixC">Confirmé</label>
                 <input type="radio" name="radioChoix" id="radioChoixP" value="Provisoire">
-        <label for="radioChoixP">Provisoire</label>
+		<label for="radioChoixP">Provisoire</label>
             </fieldset>
         </form>
         
+		<label id="typePeriod">Type de périodicité</label>
+        <form>
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <input type="radio" name="typePeriod" id="choixNone" value="Aucune"  checked="checked">
+                <label for="choixNone">Aucune</label>
+                <input type="radio" name="typePeriod" id="choixJ" value="Jour">
+		<label for="choixJ">Jour</label>
+                <input type="radio" name="typePeriod" id="choixS" value="Semaine">
+		<label for="choixS">Semaine</label>
+		<input type="radio" name="typePeriod" id="choixM" value="Mois">
+		<label for="choixM">Mois</label>
+                <input type="radio" name="typePeriod" id="choixA" value="Annee">
+		<label for="choixA">Année</label>
+                <input type="radio" name="typePeriod" id="choixNS" value="nSemaines">
+		<label for="choixNS">Toutes les n semaines</label>
+            </fieldset>
+        </form>
+                
+        <label id="fin">Date de fin de périodicité</label>
+            <input type="date" name="dateFinPeriod" id="dateFinPeriod" value=""/>
         
+            	<label id="Jour">Jour (pour n semaines)</label>
+        <form>
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <input type="checkbox" name="Jour" id="dimanche" value="dimanche"  checked="checked">
+                <label for="dimanche">dimanche</label>
+                <input type="checkbox" name="Jour" id="lundi" value="lundi">
+		<label for="lundi">lundi</label>
+                <input type="checkbox" name="Jour" id="mardi" value="mardi">
+		<label for="mardi">mardi</label>
+		<input type="checkbox" name="Jour" id="mercredi" value="mercredi">
+		<label for="mercredi">mercredi</label>
+                <input type="checkbox" name="jeudi" id="jeudi" value="jeudi">
+		<label for="jeudi">jeudi</label>
+                <input type="checkbox" name="vendredi" id="vendredi" value="vendredi">
+		<label for="vendredi">vendredi</label>
+                <input type="checkbox" name="samedi" id="samedi" value="samedi">
+		<label for="samedi">samedi</label>
+            </fieldset>
+        </form>
+                
+        <label id="intervalle">Intervalle de semaines (pour n semaines)</label>
+            <input type="text" name="intervalle" id="intervalle" value=""/>
         
-        
-        <a href ="#" data-role="button" id="btnEnregistrerAjout" data-inline="true">
-                    Enregistrer
-        </a>
+        <a href ="#" data-role="button" id="btnEnregistrerAjout" data-inline="true">Enregistrer</a>
    
     </div> <!-- /fin content --> 
         <?php 

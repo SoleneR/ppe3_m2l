@@ -14,7 +14,7 @@
         
         
         
-        
+        <!--
         <table data-role="table" class="ui-responsive">
             <thead>
                 <tr>
@@ -32,69 +32,13 @@
             <tr>
                 <td>9h00</td>
             </tr>
-            <tr>
-                <td>9h30</td>
-            </tr>
-            <tr>
-                <td>10h00</td>
-            </tr>
-            <tr>
-                <td>10h30</td>
-            </tr>
-            <tr>
-                <td>11h00</td>
-            </tr>
-            <tr>
-                <td>11h30</td>
-            </tr>
-            <tr>
-                <td>12h00</td>
-            </tr>
-            <tr>
-                <td>12h30</td>
-            </tr>
-            <tr>
-                <td>13h00</td>
-            </tr>
-            <tr>
-                <td>13h30</td>
-            </tr>
-            <tr>
-                <td>14h00</td>
-            </tr>
-            <tr>
-                <td>14h30</td>
-            </tr>
-            <tr>
-                <td>15h00</td>
-            </tr>
-            <tr>
-                <td>15h30</td>
-            </tr>
-            <tr>
-                <td>16h00</td>
-            </tr>
-            <tr>
-                <td>16h30</td>
-            </tr>
-            <tr>
-                <td>17h00</td>
-            </tr>
-            <tr>
-                <td>17h30</td>
-            </tr>
-            <tr>
-                <td>18h00</td>
-            </tr>
-            <tr>
-                <td>18h30</td>
-            </tr>
-            <tr>
-                <td>19h00</td>
-            </tr>
             
         </table>
+        -->
         
+        <div id='calendar'>
+            
+        </div>
         
         
         
