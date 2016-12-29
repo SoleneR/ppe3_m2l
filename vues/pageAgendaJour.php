@@ -5,7 +5,6 @@
     <div data-role = "content"> 
         
         <div class="ui-grid-solo">
-            <div class="ui-block-a"><ul data-role="listview"><li>One</li></ul></div>
         </div>
         <div class="ui-grid-a">
             <div class="ui-block-a"><button type="button" data-theme="c">Previous</button></div>

@@ -27,30 +27,28 @@ class PdoM2l{
     }
     
     public function getUser($login, $mdp){
-		$req = "select id, level, name from mrbs_users where name = :login and password = :mdp";
-                $stm = self::$monPdo->prepare($req);
-                $stm->bindParam(':login', $login);
-                $mdp=MD5($mdp);
-                $stm->bindParam(':mdp', $mdp);
-                $stm->execute();
-        	$laLigne = $stm->fetch();
-                if(count($laLigne)>1)
-                   return $laLigne;
-                else              
-                    return NULL;
-	}
+    $req = "select id, level, name from mrbs_users where name = :login and password = :mdp";
+    $stm = self::$monPdo->prepare($req);
+    $stm->bindParam(':login', $login);
+    $mdp=MD5($mdp);
+    $stm->bindParam(':mdp', $mdp);
+    $stm->execute();
+    $laLigne = $stm->fetch();
+        if(count($laLigne)>1)
+            return $laLigne;
+        else              
+            return NULL;
+    }
 	
-	public function addReservation($start_time,$end_time,$create_by,$name,$type,$description){
-        $req = "insert into mrbs_entry (start_time,end_time,timestamp,create_by,name,type,description) values(:start_time,:end_time,CURRENT_TIMESTAMP,:create_by,:name,:type,:descritpion)" ;
-        $stm = self::$monPdo->prepare($req);
-        $stm->bindParam(':start_time', $start_time);
-        $stm->bindParam(':end_time', $end_time); 
-        $stm->bindParam(':create_by', $create_by); 
-        $stm->bindParam(':name', $name); 
-        $stm->bindParam(':type', $type);
-        $stm->bindParam(':descritpion', $description);
-        return $stm->execute();
-        }
+    public function addReservation($start_time,$end_time,$name,$description){
+    $req = "insert into mrbs_entry (start_time,end_time,timestamp,create_by,name,description) values (:start_time,:end_time,CURRENT_TIMESTAMP,'admin',:name,:description)" ;
+    $stm = self::$monPdo->prepare($req);
+    $stm->bindParam(':start_time', $start_time);
+    $stm->bindParam(':end_time', $end_time); 
+    $stm->bindParam(':name', $name); 
+    $stm->bindParam(':description', $description);
+    return $stm->execute();
+    }
     
 }
 ?>

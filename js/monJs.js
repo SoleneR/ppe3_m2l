@@ -23,20 +23,27 @@ $(function(){
     }
     
     $('#pageAjoutReserv #btnEnregistrerAjout').bind("click",function(e) {
-        var start_time = $("#pageAjoutReserv #hdebut").val();
-        var end_time = $("#pageAjoutReserv #hfin").val();
-        var name = $("#pageAjoutReserv #ltDescr").val();
-        var description = $("#pageAjoutReserv #descrComplete").val();
+        var start_time = $("#pageAjoutReserv #start_time").val();
+        var end_time = $("#pageAjoutReserv #end_time").val();
+        var name = $("#pageAjoutReserv #name").val();
+        var description = $("#pageAjoutReserv #description").val();
         $.post("ajax/traiterAjoutReservation.php", {
-            "hdebut" : start_time,
-            "hfin" : end_time,
-            "ltDescr" : name,
-            "descrComplete" : description,
-        },
-            foncRetourArgument, "json");
+            "start_time" : start_time,
+            "end_time" : end_time,
+            "name" : name,
+            "description" : description},
+            foncRetourArgument,"json");
         });
         
         function foncRetourArgument(data){
+            if(data == 1)
+            {
+                alert("Enregistrement effectué");
+            }
+            else
+            {
+                alert("NOPE");
+            }
             
         }
     

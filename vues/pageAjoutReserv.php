@@ -3,16 +3,16 @@
         include "vues/entetePage.html"; 
     ?> 
     <div data-role = "content"> 
-        <label id="ltDescr">Brève description</label>
-        <input type="text" name="ltDescr" id="ltDescr" value=""/>  
+        <label id="name">Brève description</label>
+        <input type="text" id="name" value=""/>  
         
-        <label id="descrComplete">Description complète</label>
-        <textarea name="descrComplete" id="descrComplete" class="required"></textarea>
+        <label id="description">Description complète</label>
+        <textarea name="description" id="description" class="required"></textarea>
         
         <label id="debut">Début</label>
         <input type="date" name="jdebut" id="jdebut" value=""/>
         <form>
-           <select name="hdebut" data-mini="true" id="hdebut" data-inline="true">
+           <select name="start_time" data-mini="true" id="start_time" data-inline="true">
             <?php
             $step  = 30 * 60;   // 15 minutes
             $limit = 19 * 60 * 60;  // 24 heures
@@ -28,7 +28,7 @@
         <label id="fin">Fin</label>
         <input type="date" name="jfin" id="jfin" value=""/>
         <form>
-           <select name="hfin" data-mini="true" id="hdebut" data-inline="true">
+           <select name="end_time" data-mini="true" id="end_time" data-inline="true">
             <?php
             $step  = 30 * 60;   // 15 minutes
             $limit = 19 * 60 * 60;  // 24 heures
