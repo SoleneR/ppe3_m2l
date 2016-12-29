@@ -41,7 +41,7 @@ class PdoM2l{
     }
 	
     public function addReservation($start_time,$end_time,$name,$description){
-    $req = "insert into mrbs_entry (start_time,end_time,timestamp,create_by,name,description) values (:start_time,:end_time,CURRENT_TIMESTAMP,'admin',:name,:description)" ;
+    $req = "insert into mrbs_entry (start_time,end_time,create_by,name,description) values (:start_time,:end_time,'admin',:name,:description)" ;
     $stm = self::$monPdo->prepare($req);
     $stm->bindParam(':start_time', $start_time);
     $stm->bindParam(':end_time', $end_time); 

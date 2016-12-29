@@ -75,7 +75,7 @@
             </fieldset>
         </form>
         
-		<label id="typePeriod">Type de périodicité</label>
+        <label id="typePeriod">Type de périodicité</label>
         <form>
             <fieldset data-role="controlgroup" data-type="horizontal">
                 <input type="radio" name="typePeriod" id="choixNone" value="Aucune"  checked="checked">

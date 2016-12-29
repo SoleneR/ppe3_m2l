@@ -8,7 +8,7 @@ $description = $_REQUEST['description'];
 
 
 
-$pdo= PdoM2l::getPdo();
+$pdo=PdoM2l::getPdo();
 $newReservation=$pdo->addReservation($start_time,$end_time,$name,$description);
 
 
