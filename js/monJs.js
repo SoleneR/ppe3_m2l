@@ -74,13 +74,12 @@ $(function(){
         $("#pageVoirReservations #listeReservations").listview( "refresh" );
         } 
         
-         // pour abonner un élément HTML générer dynamiquement, il faut utiliser cette syntaxe et on
+        
          $("#pageVoirReservations #listeReservations").on("click","li", function(e) { 
-             var idReservation = $(this).prop('id'); // attr déprécié
+             var idReservation = $(this).prop('id'); 
              window.idReservation = idReservation;
-             // l'usage veut que les variables de type sélecteur commence par $
              var $reservation =  $("#pageVoirReservations #reservation");
-             $reservation.val($(this).text()); //charge les données du médecin
+             $reservation.val($(this).text()); 
              $("#pageVoirReservations #listeReservations").empty();
            
          });
