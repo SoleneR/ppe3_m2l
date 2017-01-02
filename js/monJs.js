@@ -1,5 +1,4 @@
 $(function(){
-    
     /*-----------------------Page connexion----------------------------------*/
     $('#pageConnexion #btnconnexion').bind("click", function(e) {
             e.preventDefault();

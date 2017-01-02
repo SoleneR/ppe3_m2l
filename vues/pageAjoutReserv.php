@@ -1,4 +1,4 @@
-<div data-role= "page" id="pageAjoutReserv" data-theme="b"> 
+<div data-role= "page" id="pageAjoutReserv" data-theme="b" > 
     <?php 
         include "vues/entetePage.html"; 
     ?> 
@@ -24,7 +24,6 @@
            ?> 
         </select>
         </form>
-        
         <label id="fin">Fin</label>
         <input type="date" name="jfin" id="jfin" value=""/>
         <form>
@@ -120,7 +119,6 @@
             <input type="text" name="intervalle" id="intervalle" value=""/>
         
         <a href ="#" data-role="button" id="btnEnregistrerAjout" data-inline="true">Enregistrer</a>
-   
     </div> <!-- /fin content --> 
         <?php 
             include "vues/piedsPage.html"; 

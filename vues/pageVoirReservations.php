@@ -6,7 +6,7 @@
     <ul id="listeReservations" data-role="listview"  data-filter-placeholder="Réservations..." data-filter="true" >
                    
     </ul>
-        <textarea id="reservation" value=""  class="required" />
+        <textarea id="reservation" value=""  class="required"></textarea>
        </div> <!-- /fin content --> 
         <?php 
             include "vues/piedsPage.html"; 
