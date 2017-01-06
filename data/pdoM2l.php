@@ -49,24 +49,30 @@ class PdoM2l{
         return $lesSalles;
     }
 	
-    public function addReservation($start_time,$end_time,$name,$description){
-    $req = "insert into mrbs_entry (start_time,end_time,create_by,name,description) values (:start_time,:end_time,'admin',:name,:description)" ;
+    public function addReservation($start_time,$end_time,$room_id,$name,$types,$description,$statut){
+    $req = "insert into mrbs_entry (start_time,end_time,room_id,create_by,name,type,description,status) values (:start_time,:end_time,:room_id,'admin',:name,:types,:description,:statut)" ;
     $stm = self::$monPdo->prepare($req);
     $stm->bindParam(':start_time', $start_time);
     $stm->bindParam(':end_time', $end_time); 
+    $stm->bindParam(':room_id',$room_id);
     $stm->bindParam(':name', $name); 
+    $stm->bindParam(':types',$types);
     $stm->bindParam(':description', $description);
+    $stm->bindParam(':statut',$statut);
     return $stm->execute();
     }
     
      public function getEvenement($id_salle, $dateJour) //page agendaJour
     {
-        $req = "SELECT id, name, description,
+        /*$req = "SELECT name, description,
                 DATE_FORMAT(FROM_UNIXTIME(start_time),'%d/%m/%Y') as jour,
                 DATE_FORMAT(FROM_UNIXTIME(start_time),'%H:%i:%s') as heure_debut, 
                 DATE_FORMAT(FROM_UNIXTIME(end_time),'%H:%i:%s') as heure_fin
                 FROM `mrbs_entry`
                 WHERE  DATE_FORMAT(FROM_UNIXTIME(start_time),'%d/%m/%Y') = :dateJour AND id = :id_salle" ;
+         */
+         $req = "SELECT name, description, start_time, end_time FROM `mrbs_entry`
+                WHERE  DATE_FORMAT(FROM_UNIXTIME(start_time),'%Y-%m-%d') = :dateJour AND id = :id_salle" ;
         $stm = self::$monPdo->prepare($req);
         $stm->bindParam(':id_salle', $id_salle);
         $stm->bindParam(':dateJour', $dateJour); 

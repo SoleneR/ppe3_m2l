@@ -20,7 +20,8 @@ $(function(){
                 $("#pageConnexion #message").html("erreur de login et/ou mdp");
              }
     }
-    /*----------------------------------------------------------------------------*/
+ 
+  /*----------------------------------------------------------------------------*/
  /*----------------------------Page AgendaJour --------------------------------*/
 /*----------------------------------------------------------------------------*/
 
@@ -56,41 +57,49 @@ $("#pageAgendaJour").ready(function()
             window.nom_salle = nom_salle;
             window.id_salle = id_salle;
             
-            html += "<option value='standard' id='" + id_salle + "'>" + nom_salle + "</option>"
+            html += "<option value='" + id_salle + "' id='" + id_salle + "'>" + nom_salle + "</option>"
         } 
         $('#pageAgendaJour #listeSalles').append(html);
         $('#pageAgendaJour #listeSalles').listview('refresh');
     }
     
-    /*-----------------------Affichage Evenements Test ----------------------------------*/
-    // Test de conversion et d'affichage d'une dateTime de format TimeStamp en date format Y-M-d h-m
-    //Transmission de la salle et de la date pour sélectionner l'évènement
+    /*-----------------------Affichage Evenements Jour ----------------------------------*/
     
     //$("#pageAgendaJour").ready(function()
     $('#pageAgendaJour #listeSalles').bind("click",function(e)
     {
+        var dateJour = $('#pageAgendaJour #dateJour').val()
+         var id_salle = $('#pageAgendaJour #listeSalles').val()
         $.post("ajax/traiterEvenementsJour.php",
-        {"salle" : window.id_salle, "date" : window.dateJour},foncRetourEvenementsJour,"json");
+        {"salle" : id_salle, "dateJour" :dateJour},foncRetourEvenementsJour,"json");
     });
        
     function foncRetourEvenementsJour(data)
     {
         var html="";
-        for (var i=0; i < data.length; i++)
+        
+        for (var j=0; j < data.length; j++)
         {
-             //var id = data[i]['id'];
-             var nom_reservation = data[i]['name'];
-             //var description = data[i]['description'];
-             //var start_time = data[i]['start_datetime'];
-             //var end_time = data[i]['end_datetime'];
+             var nom_reservation = data[j]['name'];
+             var description = data[j]['description'];
+             var heure_debut = data[j]['heure_debut'];
+             var heure_fin = data[j]['heure_fin'];
+             
+             for (var i = heure_debut; i < heure_fin; i += 1800) 
+            {
+              html = "strong>" + nom_reservation + "</strong>" + description;   
+                $('#pageAgendaJour #agendaJour').append(html);
+                $('#pageAgendaJour #agendaJour').refresh;
+              
+            }
+
                  
-            //html += "<strong>" + name + "</strong>";
-            html += "<option value='standard'>" + nom_reservation + "</option>"
+            
         }
         
         //$("#pageAgendaJour #9h00").append(html);
         //$("#pageAgendaJour #listeSalles").listview('refresh');
-        $('#pageAgendaJour #listeEvenements').append(html);
+        
         //$('#pageAgendaJour #listeEvenements').listview('refresh');
     }
    
@@ -101,15 +110,25 @@ $("#pageAgendaJour").ready(function()
 /*----------------------------------------------------------------------------*/
     
     $('#pageAjoutReserv #btnEnregistrerAjout').bind("click",function(e) {
+        var start_date = $("#pageAjoutReserv #jdebut").val();
+        var end_date = $("#pageAjoutReserv #jfin").val();
         var start_time = $("#pageAjoutReserv #start_time").val();
         var end_time = $("#pageAjoutReserv #end_time").val();
+        var room_id = $("#pageAjoutReserv #salle").val();
         var name = $("#pageAjoutReserv #name").val();
+        var types = $("#pageAjoutReserv #types").val();
         var description = $("#pageAjoutReserv #description").val();
+        var statut = $("#pageAjoutReserv #statut").val();
         $.post("ajax/traiterAjoutReservation.php", {
+            "start_date" : start_date,
+            "end_date" : end_date,
             "start_time" : start_time,
             "end_time" : end_time,
+            "room_id" : room_id,
             "name" : name,
-            "description" : description},
+            "types" : types,
+            "description" : description,
+            "statut" : statut},
             foncRetourArgument,"json");
         });
         

@@ -1,7 +1,7 @@
 <?php
 require_once '../data/pdoM2l.php';
 
-$id_salle = $_REQUEST['id_salle'];
+$id_salle = $_REQUEST['salle'];
 $dateJour = $_REQUEST['dateJour'];
 
 $pdo=PdoM2l::getPdo();
