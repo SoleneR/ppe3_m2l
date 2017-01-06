@@ -59,9 +59,10 @@
                 <option value="1">Confirmé</option>
                 <option value="0">Provisoire</option>
         </select>
+        <br>
   
                         
-        <a href ="#" data-role="button" id="btnEnregistrerAjout" data-inline="true">Enregistrer</a>
+        <a href ="#" data-role="button" id="btnEnregistrerAjout" data-inline="true" data-icon="check">Enregistrer</a>
     </div> <!-- /fin content --> 
         <?php 
             include "vues/piedsPage.html"; 
