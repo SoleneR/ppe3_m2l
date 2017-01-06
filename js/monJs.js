@@ -60,7 +60,7 @@ $("#pageAgendaJour").ready(function()
             html += "<option value='" + id_salle + "' id='" + id_salle + "'>" + nom_salle + "</option>"
         } 
         $('#pageAgendaJour #listeSalles').append(html);
-        $('#pageAgendaJour #listeSalles').listview('refresh');
+        $('#pageAgendaJour #listeSalles').refresh;
     }
     
     /*-----------------------Affichage Evenements Jour ----------------------------------*/
@@ -89,7 +89,7 @@ $("#pageAgendaJour").ready(function()
             {
               html = "strong>" + nom_reservation + "</strong>" + description;   
                 $('#pageAgendaJour #agendaJour').append(html);
-                $('#pageAgendaJour #agendaJour').refresh;
+                $('#pageAgendaJour #agendaJour').listview( "refresh" );
               
             }
 
@@ -165,6 +165,7 @@ $("#pageAgendaJour").ready(function()
                  var description = reservation['description'];
                  var start_time = reservation['start_datetime'];
                  var end_time = reservation['end_datetime'];
+                 var create_by = reservation['create_by'];
                  var room_name = reservation['room_name'];
                  var statut = reservation['status'];
                  var types =reservation['type'];
@@ -184,7 +185,7 @@ $("#pageAgendaJour").ready(function()
                  {
                      statut = 'Provisoire';
                  }
-                 html +="<li id=" + id +"><input type='hidden' value ="+name+"><a href ='#' >" + name + "  Description: " + description + "  Début: " + start_time +"  Fin: "+end_time+"  Salle: "+room_name +" Type: "+types+" Statut: "+statut ;
+                 html +="<li id=" + id +"><input type='hidden' value ="+name+"><a href ='#' >" + name + "  Description: " + description + "  Début: " + start_time +"  Fin: "+end_time+" Créé par: "+create_by+"  Salle: "+room_name +" Type: "+types+" Statut: "+statut ;
                  html +="</a></li>";
         }
         $("#pageVoirReservations #listeReservations").html( html );
@@ -200,11 +201,55 @@ $("#pageAgendaJour").ready(function()
              $("#pageVoirReservations #listeReservations").empty();
            
          });
-    
+         
         $("#pageVoirReservations").on( "pagebeforeshow", function (event, ui) {
             $("#pageVoirReservations #reservation").val(""); 
             $("#pageVoirReservations #listeReservations").val(""); 
          } );
+         
+          /*----------------------------------------------------------------------------*/
+ /*----------------------------Supprimer une réservation----------------------*/
+/*----------------------------------------------------------------------------*/           
+         $('#pageVoirReservations #btnEffacerReservation').bind("click",function(e) {
+             $.post("ajax/traiterEffacerReservation.php",{
+             "idReservation" : window.idReservation        
+              },foncRetourEffacer,"json" );
+             
+         });
+         function foncRetourEffacer(data)
+         {
+             if(data==1)
+             {
+                 alert('Reservation effacée')
+             }
+             else
+             {
+                 alert('Erreur pour effacer la réservation');
+             }
+         }
+         
+           /*----------------------------------------------------------------------------*/
+ /*----------------------------Copier une réservation----------------------*/
+/*----------------------------------------------------------------------------*/          
+          $('#pageVoirReservations #btnCopierReservation').bind("click",function(e) {
+             $.post("ajax/traiterCopierReservation.php",{
+             "idReservation" : window.idReservation        
+              },foncRetourCopier,"json" );
+             
+         });
+         
+         function foncRetourCopier(data)
+         {
+             if(data==1)
+             {
+                 alert('Réservation copiée')
+             }
+             else
+             {
+                 alert('Erreur pour copier la réservation');
+             }
+         }
+
 
        
         

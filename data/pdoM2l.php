@@ -61,6 +61,20 @@ class PdoM2l{
     $stm->bindParam(':statut',$statut);
     return $stm->execute();
     }
+
+    public function delReservation($idReservation){
+    $req = "delete from mrbs_entry where id= :idReservation";
+    $stm = self::$monPdo->prepare($req);
+    $stm->bindParam(':idReservation',$idReservation);
+    return $stm->execute();
+    }
+    
+    public function copyReservation($idReservation){
+    $req = "insert into mrbs_entry (start_time,end_time,room_id,create_by,name,type,description,status) select start_time,end_time,room_id,create_by,name,type,description,status from mrbs_entry where id= :idReservation";
+    $stm = self::$monPdo->prepare($req);
+    $stm->bindParam(':idReservation',$idReservation);
+    return $stm->execute();
+    }
     
      public function getEvenement($id_salle, $dateJour) //page agendaJour
     {
@@ -82,7 +96,7 @@ class PdoM2l{
     }
     
     public function getLesReservations($name){
-    $req = "select mrbs_entry.id,name, mrbs_entry.description, FROM_UNIXTIME(start_time) start_datetime,FROM_UNIXTIME(end_time) end_datetime,room_name,type,status from mrbs_entry inner join mrbs_room on mrbs_entry.room_id=mrbs_room.id where name like '" . $name ."%' ";
+    $req = "select mrbs_entry.id,name, mrbs_entry.description, FROM_UNIXTIME(start_time) start_datetime,FROM_UNIXTIME(end_time) end_datetime,room_name,create_by,type,status from mrbs_entry inner join mrbs_room on mrbs_entry.room_id=mrbs_room.id where name like '" . $name ."%' ";
     $rs = self::$monPdo->query($req);
     $lesLignes = $rs->fetchAll();
     return $lesLignes;
