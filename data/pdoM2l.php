@@ -76,17 +76,17 @@ class PdoM2l{
     return $stm->execute();
     }
     
-     public function getEvenement($id_salle, $dateJour) //page agendaJour
+    public function getEvenement($id_salle, $dateJour) //page agendaJour
     {
         /*$req = "SELECT name, description,
                 DATE_FORMAT(FROM_UNIXTIME(start_time),'%d/%m/%Y') as jour,
                 DATE_FORMAT(FROM_UNIXTIME(start_time),'%H:%i:%s') as heure_debut, 
                 DATE_FORMAT(FROM_UNIXTIME(end_time),'%H:%i:%s') as heure_fin
                 FROM `mrbs_entry`
-                WHERE  DATE_FORMAT(FROM_UNIXTIME(start_time),'%d/%m/%Y') = :dateJour AND id = :id_salle" ;
+                WHERE  DATE_FORMAT(FROM_UNIXTIME(start_time),'%d-%m-%Y') = :dateJour AND id = :id_salle" ;
          */
          $req = "SELECT name, description, start_time, end_time FROM `mrbs_entry`
-                WHERE  DATE_FORMAT(FROM_UNIXTIME(start_time),'%Y-%m-%d') = :dateJour AND id = :id_salle" ;
+                WHERE  DATE_FORMAT(FROM_UNIXTIME(start_time),'%Y-%m-%d') = :dateJour AND room_id = :id_salle" ;
         $stm = self::$monPdo->prepare($req);
         $stm->bindParam(':id_salle', $id_salle);
         $stm->bindParam(':dateJour', $dateJour); 

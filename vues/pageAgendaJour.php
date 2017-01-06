@@ -39,7 +39,7 @@
                     echo "<td>";
                     echo date("H:i", $i);
                     echo "</td>";
-                    echo "<td >";
+                    echo "<td id = '$i'>";
                     echo "</td>";
                     echo "</tr>";
                 }

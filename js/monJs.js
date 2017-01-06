@@ -1,4 +1,7 @@
 $(function(){
+    window.dateJour     = "";
+    window.nom_salle    = "";
+    window.id_salle     = "";
     /*-----------------------Page connexion----------------------------------*/
     $('#pageConnexion #btnconnexion').bind("click", function(e) {
             e.preventDefault();
@@ -60,13 +63,12 @@ $("#pageAgendaJour").ready(function()
             html += "<option value='" + id_salle + "' id='" + id_salle + "'>" + nom_salle + "</option>"
         } 
         $('#pageAgendaJour #listeSalles').append(html);
-        $('#pageAgendaJour #listeSalles').refresh;
+        $('#pageAgendaJour #listeSalles').listview('refresh');
     }
     
     /*-----------------------Affichage Evenements Jour ----------------------------------*/
     
-    //$("#pageAgendaJour").ready(function()
-    $('#pageAgendaJour #listeSalles').bind("click",function(e)
+    $('#pageAgendaJour #listeSalles').bind("change",function(e)
     {
         var dateJour = $('#pageAgendaJour #dateJour').val()
          var id_salle = $('#pageAgendaJour #listeSalles').val()
@@ -77,19 +79,21 @@ $("#pageAgendaJour").ready(function()
     function foncRetourEvenementsJour(data)
     {
         var html="";
-        
+    
         for (var j=0; j < data.length; j++)
-        {
+        {    console.log(data)
              var nom_reservation = data[j]['name'];
              var description = data[j]['description'];
-             var heure_debut = data[j]['heure_debut'];
-             var heure_fin = data[j]['heure_fin'];
-             
-             for (var i = heure_debut; i < heure_fin; i += 1800) 
+             var  heure_debut= parseInt(data[j]['start_time']);
+             var heure_fin = parseInt(data[j]['end_time']);
+           
+			
+          for (var i = heure_debut; i < heure_fin; i = i+  1800) 
             {
-              html = "strong>" + nom_reservation + "</strong>" + description;   
-                $('#pageAgendaJour #agendaJour').append(html);
-                $('#pageAgendaJour #agendaJour').listview( "refresh" );
+                
+              var idcase = "#" + (i);
+			  console.log(idacase);
+			  $('idcase').html("er");
               
             }
 
@@ -102,9 +106,6 @@ $("#pageAgendaJour").ready(function()
         
         //$('#pageAgendaJour #listeEvenements').listview('refresh');
     }
-   
-    
-    
   /*----------------------------------------------------------------------------*/
  /*----------------------------Page Ajout Réservation--------------------------*/
 /*----------------------------------------------------------------------------*/
