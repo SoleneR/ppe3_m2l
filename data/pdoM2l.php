@@ -82,7 +82,7 @@ class PdoM2l{
     }
     
     public function getLesReservations($name){
-    $req = "select mrbs_entry.id,name, mrbs_entry.description, FROM_UNIXTIME(start_time) start_datetime,FROM_UNIXTIME(end_time) end_datetime,room_name from mrbs_entry inner join mrbs_room on mrbs_entry.room_id=mrbs_room.id where name like '" . $name ."%' ";
+    $req = "select mrbs_entry.id,name, mrbs_entry.description, FROM_UNIXTIME(start_time) start_datetime,FROM_UNIXTIME(end_time) end_datetime,room_name,type,status from mrbs_entry inner join mrbs_room on mrbs_entry.room_id=mrbs_room.id where name like '" . $name ."%' ";
     $rs = self::$monPdo->query($req);
     $lesLignes = $rs->fetchAll();
     return $lesLignes;

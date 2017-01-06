@@ -166,7 +166,25 @@ $("#pageAgendaJour").ready(function()
                  var start_time = reservation['start_datetime'];
                  var end_time = reservation['end_datetime'];
                  var room_name = reservation['room_name'];
-                 html +="<li id=" + id +"><input type='hidden' value ="+name+"><a href ='#' >" + name + "  Description: " + description + "  Début: " + start_time +"  Fin: "+end_time+"  Salle: "+room_name ;
+                 var statut = reservation['status'];
+                 var types =reservation['type'];
+                 if(types=='E')
+                 {
+                     types = 'Occasionnel';
+                 }
+                 else
+                 {
+                     types = 'Régulier';
+                 }
+                 if(statut=='1')
+                 {
+                     statut = 'Confirmé';
+                 }
+                 else
+                 {
+                     statut = 'Provisoire';
+                 }
+                 html +="<li id=" + id +"><input type='hidden' value ="+name+"><a href ='#' >" + name + "  Description: " + description + "  Début: " + start_time +"  Fin: "+end_time+"  Salle: "+room_name +" Type: "+types+" Statut: "+statut ;
                  html +="</a></li>";
         }
         $("#pageVoirReservations #listeReservations").html( html );
