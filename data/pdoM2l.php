@@ -39,6 +39,15 @@ class PdoM2l{
         else              
             return NULL;
     }
+    
+    public function getLesSalles() //page agendaJour
+    {
+        $req = "SELECT DISTINCT room_name, id FROM mrbs_room WHERE id = 5 OR id = 6 OR id = 12" ; 
+        $stm = self::$monPdo->prepare($req);
+        $stm->execute();
+        $lesSalles = $stm->fetchAll();
+        return $lesSalles;
+    }
 	
     public function addReservation($start_time,$end_time,$name,$description){
     $req = "insert into mrbs_entry (start_time,end_time,create_by,name,description) values (:start_time,:end_time,'admin',:name,:description)" ;
@@ -50,12 +59,30 @@ class PdoM2l{
     return $stm->execute();
     }
     
+     public function getEvenement($id_salle, $dateJour) //page agendaJour
+    {
+        $req = "SELECT id, name, description,
+                DATE_FORMAT(FROM_UNIXTIME(start_time),'%d/%m/%Y') as jour,
+                DATE_FORMAT(FROM_UNIXTIME(start_time),'%H:%i:%s') as heure_debut, 
+                DATE_FORMAT(FROM_UNIXTIME(end_time),'%H:%i:%s') as heure_fin
+                FROM `mrbs_entry`
+                WHERE  DATE_FORMAT(FROM_UNIXTIME(start_time),'%d/%m/%Y') = :dateJour AND id = :id_salle" ;
+        $stm = self::$monPdo->prepare($req);
+        $stm->bindParam(':id_salle', $id_salle);
+        $stm->bindParam(':dateJour', $dateJour); 
+        $stm->execute();
+        $lesEvenement = $stm->fetchAll();
+        return $lesEvenement;
+    }
+    
     public function getLesReservations($name){
     $req = "select mrbs_entry.id,name, mrbs_entry.description, FROM_UNIXTIME(start_time) start_datetime,FROM_UNIXTIME(end_time) end_datetime,room_name from mrbs_entry inner join mrbs_room on mrbs_entry.room_id=mrbs_room.id where name like '" . $name ."%' ";
     $rs = self::$monPdo->query($req);
     $lesLignes = $rs->fetchAll();
     return $lesLignes;
     }
+    
+    
     
  
 

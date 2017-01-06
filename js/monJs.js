@@ -20,6 +20,85 @@ $(function(){
                 $("#pageConnexion #message").html("erreur de login et/ou mdp");
              }
     }
+    /*----------------------------------------------------------------------------*/
+ /*----------------------------Page AgendaJour --------------------------------*/
+/*----------------------------------------------------------------------------*/
+
+    /*-----------------------Maj automatique de la date du jour----------------------------------*/
+var date = new Date();
+
+var day = date.getDate();
+var month = date.getMonth() + 1;
+var year = date.getFullYear();
+
+if (month < 10) month = "0" + month;
+if (day < 10) day = "0" + day;
+
+var today = year + "-" + month + "-" + day;
+
+document.getElementById('dateJour').value = today;
+
+window.dateJour = today;
+
+    /*-----------------------Lister Salles----------------------------------*/
+$("#pageAgendaJour").ready(function()
+    {
+        $.post("./ajax/traiterListeSalles.php", foncRetourListeSalles,"json" );
+    });
+    
+    function foncRetourListeSalles(data)
+    {
+        var html ="";
+        for ( var i = 0; i < data.length; i++)
+        {
+            var id_salle = data[i]['id'];
+            var nom_salle = data[i]['room_name'];
+            window.nom_salle = nom_salle;
+            window.id_salle = id_salle;
+            
+            html += "<option value='standard' id='" + id_salle + "'>" + nom_salle + "</option>"
+        } 
+        $('#pageAgendaJour #listeSalles').append(html);
+        $('#pageAgendaJour #listeSalles').listview('refresh');
+    }
+    
+    /*-----------------------Affichage Evenements Test ----------------------------------*/
+    // Test de conversion et d'affichage d'une dateTime de format TimeStamp en date format Y-M-d h-m
+    //Transmission de la salle et de la date pour sélectionner l'évènement
+    
+    //$("#pageAgendaJour").ready(function()
+    $('#pageAgendaJour #listeSalles').bind("click",function(e)
+    {
+        $.post("ajax/traiterEvenementsJour.php",
+        {"salle" : window.id_salle, "date" : window.dateJour},foncRetourEvenementsJour,"json");
+    });
+       
+    function foncRetourEvenementsJour(data)
+    {
+        var html="";
+        for (var i=0; i < data.length; i++)
+        {
+             //var id = data[i]['id'];
+             var nom_reservation = data[i]['name'];
+             //var description = data[i]['description'];
+             //var start_time = data[i]['start_datetime'];
+             //var end_time = data[i]['end_datetime'];
+                 
+            //html += "<strong>" + name + "</strong>";
+            html += "<option value='standard'>" + nom_reservation + "</option>"
+        }
+        
+        //$("#pageAgendaJour #9h00").append(html);
+        //$("#pageAgendaJour #listeSalles").listview('refresh');
+        $('#pageAgendaJour #listeEvenements').append(html);
+        //$('#pageAgendaJour #listeEvenements').listview('refresh');
+    }
+   
+    
+    
+  /*----------------------------------------------------------------------------*/
+ /*----------------------------Page Ajout Réservation--------------------------*/
+/*----------------------------------------------------------------------------*/
     
     $('#pageAjoutReserv #btnEnregistrerAjout').bind("click",function(e) {
         var start_time = $("#pageAjoutReserv #start_time").val();
@@ -41,12 +120,14 @@ $(function(){
             }
             else
             {
-                alert("NOPE");
+                alert("erreur");
             }
             
         }
         
-            
+      /*----------------------------------------------------------------------------*/
+ /*----------------------------Page Recherche Réservation----------------------*/
+/*----------------------------------------------------------------------------*/        
         $("#pageVoirReservations #listeReservations").on( "filterablebeforefilter", function (e, data ){
         var name = data.input.val();// on récupère la saisie
         if(name && name.length >=1){
