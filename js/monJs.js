@@ -1,4 +1,4 @@
-function clearBox(elementClass)     //azerty
+function clearBox(elementClass)   
 {
     document.getElementsByClassName(elementClass).innerHTML = "";
 }
@@ -143,12 +143,10 @@ $("#pageAgendaJour").ready(function()
             "types" : types,
             "description" : description,
             "statut" : statut},
-            foncVerif,"json");
+            foncRetourArgument,"json");
         });
         
-		function foncVerif(data){
-			
-		}
+
 		
         function foncRetourArgument(data){
             if(data == 1)
