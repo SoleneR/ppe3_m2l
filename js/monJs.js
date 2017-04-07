@@ -35,6 +35,7 @@ var year = date.getFullYear();
 if (month < 10) month = "0" + month;
 if (day < 10) day = "0" + day;
 
+//var today = year + "-" + month + "-" + day;
 var today = year + "-" + month + "-" + day;
 
 document.getElementById('dateJour').value = today;
@@ -65,11 +66,14 @@ $("#pageAgendaJour").ready(function()
     
     /*-----------------------Affichage Evenements Jour ----------------------------------*/
     
-    //$("#pageAgendaJour").ready(function()
+    
     $('#pageAgendaJour #listeSalles').bind("click",function(e)
     {
         var dateJour = $('#pageAgendaJour #dateJour').val()
-         var id_salle = $('#pageAgendaJour #listeSalles').val()
+        var id_salle = $('#pageAgendaJour #listeSalles').val()
+        
+        console.log(dateJour);
+        
         $.post("ajax/traiterEvenementsJour.php",
         {"salle" : id_salle, "dateJour" :dateJour},foncRetourEvenementsJour,"json");
     });
@@ -77,32 +81,36 @@ $("#pageAgendaJour").ready(function()
     function foncRetourEvenementsJour(data)
     {
         var html="";
+        console.log(data[0]["name"]);
         
         for (var j=0; j < data.length; j++)
-        {
+        {   
              var nom_reservation = data[j]['name'];
              var description = data[j]['description'];
-             var heure_debut = data[j]['heure_debut'];
-             var heure_fin = data[j]['heure_fin'];
+             var heure_debut = parseInt(data[j]['heure_debut_stamp']);
+             var heure_fin = parseInt(data[j]['heure_fin_stamp']);
              
-             for (var i = heure_debut; i < heure_fin; i += 1800) 
+            for (hi = heure_debut ; hi < heure_fin ; hi += 1800)
             {
-              html = "strong>" + nom_reservation + "</strong>" + description;   
-                $('#pageAgendaJour #agendaJour').append(html);
-                $('#pageAgendaJour #agendaJour').listview( "refresh" );
-              
+                console.log(hi);
+                html = "<span style='display: block; text-align: center;'><strong>" + nom_reservation + " </strong></br>" + description + "</span>";
+                $('#pageAgendaJour #agendaJour #'+ hi).append(html);
+                $('#pageAgendaJour #agendaJour').refresh;
             }
-
-                 
+            
+            
+           
+                console.log(heure_debut);
+                 console.log(heure_fin);
+            
+            
             
         }
         
         //$("#pageAgendaJour #9h00").append(html);
         //$("#pageAgendaJour #listeSalles").listview('refresh');
-        
         //$('#pageAgendaJour #listeEvenements').listview('refresh');
     }
-   
     
     
   /*----------------------------------------------------------------------------*/
@@ -144,73 +152,82 @@ $("#pageAgendaJour").ready(function()
             
         }
         
-      /*----------------------------------------------------------------------------*/
+         /*----------------------------------------------------------------------------*/
  /*----------------------------Page Recherche Réservation----------------------*/
-/*----------------------------------------------------------------------------*/        
-        $("#pageVoirReservations #listeReservations").on( "filterablebeforefilter", function (e, data ){
+/*----------------------------------------------------------------------------*/    
+     $("#pageVoirReservations #listeReservations").on( "filterablebeforefilter", function (e, data ){
         var name = data.input.val();// on récupère la saisie
         if(name && name.length >=1){
         $.post("ajax/traiterRechercheReservation.php",{
              "name" : name        
               },foncRetourRechercheReservations,"json" );
               }
-        });
-        
-        function foncRetourRechercheReservations(data){
+        }); 
+    
+    function foncRetourRechercheReservations(data){
         var html ="";
             for(i=0; i < data.length;i++){
                  var reservation = data[i];
                  var id = reservation['id'];
                  var name = reservation['name'];
                  var description = reservation['description'];
-                 var start_time = reservation['start_datetime'];
-                 var end_time = reservation['end_datetime'];
-                 var create_by = reservation['create_by'];
-                 var room_name = reservation['room_name'];
-                 var statut = reservation['status'];
-                 var types =reservation['type'];
-                 if(types=='E')
-                 {
-                     types = 'Occasionnel';
-                 }
-                 else
-                 {
-                     types = 'Régulier';
-                 }
-                 if(statut=='1')
-                 {
-                     statut = 'Confirmé';
-                 }
-                 else
-                 {
-                     statut = 'Provisoire';
-                 }
-                 html +="<li id=" + id +"><input type='hidden' value ="+name+"><a href ='#' >" + name + "  Description: " + description + "  Début: " + start_time +"  Fin: "+end_time+" Créé par: "+create_by+"  Salle: "+room_name +" Type: "+types+" Statut: "+statut ;
-                 html +="</a></li>";
-        }
+                 html +="<li id=" + id +"><input type='hidden' value ="+name+"><a href ='#' >Nom " + name + "  Description: " + description;
+                 html +="</a></li>";    
+            }
         $("#pageVoirReservations #listeReservations").html( html );
-        $("#pageVoirReservations #listeReservations").listview( "refresh" );
-        } 
+        $("#pageVoirReservations #listeReservations").listview( "refresh" );      
+    }
+
         
+    $("#pageVoirReservations #listeReservations").on("click","li", function(e) { 
+        var idReservation = $(this).attr('id'); 
+        window.idReservation = idReservation;
+        $.post("ajax/traiterReservation.php",{
+             "idReservation" : window.idReservation },
+             foncRetourChoixRapport,"json" );
+    });
+    
+    function foncRetourChoixRapport(data)
+    {
+       
+        $.mobile.changePage("#pageModifierReservations");
+        var nom = data['name'];
+        var user = data['create_by'];
+        var description = data['description'];
+        var type = data["type"];
+        var statut = data["status"];
+        var start = data["start"];
+        var end = data["end"];
+        var room_name = data["room_name"];
+            if(type=='E'){
+                type = 'Occasionnel';
+            }
+            else{
+                 type = 'Régulier';
+            }
+            if(statut=='1'){
+                statut = 'Confirmé';
+            }
+            else{
+                statut = 'Provisoire';
+            }
+                  
         
-         $("#pageVoirReservations #listeReservations").on("click","li", function(e) { 
-             var idReservation = $(this).prop('id'); 
-             window.idReservation = idReservation;
-             var $reservation =  $("#pageVoirReservations #reservation");
-             $reservation.val($(this).text()); 
-             $("#pageVoirReservations #listeReservations").empty();
-           
-         });
-         
-        $("#pageVoirReservations").on( "pagebeforeshow", function (event, ui) {
-            $("#pageVoirReservations #reservation").val(""); 
-            $("#pageVoirReservations #listeReservations").val(""); 
-         } );
+        $("#pageModifierReservations #nom").val(nom);
+        $("#pageModifierReservations #user").val(user);
+        $("#pageModifierReservations #description").val(description);
+        $("#pageModifierReservations #type").val(type);
+        $("#pageModifierReservations #statut").val(statut);
+        $("#pageModifierReservations #start").val(start);
+        $("#pageModifierReservations #end").val(end);
+        $("#pageModifierReservations #salle").val(room_name);
+
+    }
          
           /*----------------------------------------------------------------------------*/
  /*----------------------------Supprimer une réservation----------------------*/
 /*----------------------------------------------------------------------------*/           
-         $('#pageVoirReservations #btnEffacerReservation').bind("click",function(e) {
+         $('#pageModifierReservations #btnEffacerReservation').bind("click",function(e) {
              $.post("ajax/traiterEffacerReservation.php",{
              "idReservation" : window.idReservation        
               },foncRetourEffacer,"json" );
@@ -231,7 +248,7 @@ $("#pageAgendaJour").ready(function()
            /*----------------------------------------------------------------------------*/
  /*----------------------------Copier une réservation----------------------*/
 /*----------------------------------------------------------------------------*/          
-          $('#pageVoirReservations #btnCopierReservation').bind("click",function(e) {
+          $('#pageModifierReservations #btnCopierReservation').bind("click",function(e) {
              $.post("ajax/traiterCopierReservation.php",{
              "idReservation" : window.idReservation        
               },foncRetourCopier,"json" );
@@ -251,14 +268,55 @@ $("#pageAgendaJour").ready(function()
          }
 
 
-       
+             /*----------------------------------------------------------------------------*/
+ /*----------------------------Modifier une réservation----------------------*/
+/*----------------------------------------------------------------------------*/   
+     $("#pageModifierReservations #btnModifierReservation").on("click",function(e){
+        var start = $("#pageModifierReservations #start").val(); 
+        var end = $("#pageModifierReservations #end").val(); 
+        var nom = $("#pageModifierReservations #nom").val(); 
+        var user = $("#pageModifierReservations #user").val();
+        var description = $("#pageModifierReservations #description").val();
+        var type = $("#pageModifierReservations #type").val();
+        var statut = $("#pageModifierReservations #statut").val();
+            if(type=='Occasionnel'){
+                type = 'E';
+            }
+            else if (type=="Régulier"){
+                 type = 'I';
+            }
+            if(statut=='Confirmé'){
+                statut = '1';
+            }
+            else if(statut=="Provisoire"){
+                statut = '0';
+            }
+        $.post("ajax/traiterModifierReservation.php",{
+                        "idReservation" : window.idReservation,
+                        "start" : start,
+                        "end" : end,
+                        "nom" : nom,
+                        "user" : user,
+                        "description" : description,
+                        "type" : type,
+                        "statut" : statut
+                        },
+                        foncRetourModifRapport,"json" );     
+    });
+
+    function foncRetourModifRapport(data)
+    {
+       if(data==1)
+       {
+           alert("Mise à jour effectuée");
+       }
+       else
+       {
+           alert("Mise à jour échouée");
+       }
         
-       
+        $.mobile.changePage("#pageAgendaJour");
         
-   
-    
-    
-    
-    
-    
+    }
+        
 });
