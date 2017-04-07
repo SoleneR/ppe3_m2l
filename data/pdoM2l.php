@@ -125,7 +125,6 @@ class PdoM2l{
     $stm->execute();
     $laLigne = $stm->fetch();
     return $laLigne;
-    }
-    
+    }   
 }
 ?>

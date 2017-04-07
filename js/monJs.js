@@ -70,7 +70,6 @@ $("#pageAgendaJour").ready(function()
             html += "<option value='" + id_salle + "' id='" + id_salle + "'>" + nom_salle + "</option>"
         }
         $('#pageAgendaJour #listeSalles').append(html);
-        $('#pageAgendaJour #listeSalles').listview('refresh');
     }
     
     /*-----------------------Affichage Evenements Jour ----------------------------------*/
@@ -144,9 +143,13 @@ $("#pageAgendaJour").ready(function()
             "types" : types,
             "description" : description,
             "statut" : statut},
-            foncRetourArgument,"json");
+            foncVerif,"json");
         });
         
+		function foncVerif(data){
+			
+		}
+		
         function foncRetourArgument(data){
             if(data == 1)
             {
