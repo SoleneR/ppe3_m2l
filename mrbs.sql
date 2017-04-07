@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 01 Décembre 2016 à 10:00
+-- Généré le :  Ven 31 Mars 2017 à 09:00
 -- Version du serveur :  10.1.13-MariaDB
 -- Version de PHP :  7.0.6
 
@@ -95,14 +95,10 @@ CREATE TABLE `mrbs_entry` (
 --
 
 INSERT INTO `mrbs_entry` (`id`, `start_time`, `end_time`, `entry_type`, `repeat_id`, `room_id`, `timestamp`, `create_by`, `name`, `type`, `description`, `status`, `reminded`, `info_time`, `info_user`, `info_text`, `ical_uid`, `ical_sequence`, `ical_recur_id`) VALUES
-(1, 1478246400, 1478250000, 1, 1, 5, '2016-11-04 10:20:08', 'admin', 'test', 'I', 'test réservation', 0, NULL, NULL, NULL, NULL, 'MRBS-581c60d89a9e9-41efc4f5@localhost', 0, '20161104T080000Z'),
-(3, 1477996200, 1477999800, 0, 0, 5, '2016-11-04 10:52:51', 'admin', 'test2', 'I', '', 0, NULL, NULL, NULL, NULL, 'MRBS-581c6883eb64f-ab010618@localhost', 0, ''),
-(4, 1478250000, 1478253600, 0, 0, 5, '2016-11-18 10:23:44', 'admin', 'gr', 'I', 'gtre', 0, NULL, NULL, NULL, NULL, 'MRBS-582ed6b00751b-e0d0baf5@localhost', 0, ''),
-(5, 1479454200, 1479461400, 0, 0, 5, '2016-11-18 10:25:47', 'admin', 'j,n', 'I', 'jtyjutr-', 0, NULL, NULL, NULL, NULL, 'MRBS-582ed72be18cb-d2c0b5dc@localhost', 0, ''),
-(6, 1479470400, 1479490200, 0, 0, 5, '2016-11-18 10:25:59', 'admin', 'hyu(trhy', 'I', 'kuh', 0, NULL, NULL, NULL, NULL, 'MRBS-582ed7379adeb-e5ecdaef@localhost', 0, ''),
-(7, 1479448800, 1479452400, 0, 0, 12, '2016-11-18 10:26:30', 'admin', 'gt', 'I', 'gry', 0, NULL, NULL, NULL, NULL, 'MRBS-582ed756bced2-630a0942@localhost', 0, ''),
-(8, 1479493800, 1479495600, 0, 0, 12, '2016-11-18 10:26:34', 'admin', 'gre', 'I', 'gr', 0, NULL, NULL, NULL, NULL, 'MRBS-582ed75a8ce22-34a9f204@localhost', 0, ''),
-(10, 1479535200, 1479582000, 0, 0, 5, '2016-11-18 10:26:58', 'admin', 'hbtrb', 'I', 'erger', 0, NULL, NULL, NULL, NULL, 'MRBS-582ed768a1fe1-9cd4658d@localhost', 1, '');
+(55, 1483682400, 1483693200, 0, 0, 5, '2017-01-06 10:44:30', 'admin', 'Un test', 'E', 'description du test', 1, NULL, NULL, NULL, NULL, '', 0, ''),
+(56, 1485669600, 1485777600, 0, 0, 12, '2017-01-06 10:45:20', 'admin', 'Un deuxième test', 'E', 'description du test 2', 0, NULL, NULL, NULL, NULL, '', 0, ''),
+(61, 1483682400, 1483693200, 0, 0, 5, '2017-01-06 14:38:06', 'admin', 'Un test', 'E', 'blabla', 1, NULL, NULL, NULL, NULL, '', 0, ''),
+(62, 1485669600, 1485777600, 0, 0, 12, '2017-01-06 14:43:30', 'admin', 'Un deuxième test', 'E', 'description du test 2', 0, NULL, NULL, NULL, NULL, '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -387,7 +383,7 @@ ALTER TABLE `mrbs_area`
 -- AUTO_INCREMENT pour la table `mrbs_entry`
 --
 ALTER TABLE `mrbs_entry`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 --
 -- AUTO_INCREMENT pour la table `mrbs_repeat`
 --
