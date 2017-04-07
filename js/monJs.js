@@ -1,4 +1,7 @@
 $(function(){
+    window.dateJour     = "";
+    window.nom_salle    = "";
+    window.id_salle     = "";
     /*-----------------------Page connexion----------------------------------*/
     $('#pageConnexion #btnconnexion').bind("click", function(e) {
             e.preventDefault();
@@ -61,7 +64,7 @@ $("#pageAgendaJour").ready(function()
             html += "<option value='" + id_salle + "' id='" + id_salle + "'>" + nom_salle + "</option>"
         } 
         $('#pageAgendaJour #listeSalles').append(html);
-        $('#pageAgendaJour #listeSalles').refresh;
+        $('#pageAgendaJour #listeSalles').listview('refresh');
     }
     
     /*-----------------------Affichage Evenements Jour ----------------------------------*/
@@ -111,8 +114,6 @@ $("#pageAgendaJour").ready(function()
         //$("#pageAgendaJour #listeSalles").listview('refresh');
         //$('#pageAgendaJour #listeEvenements').listview('refresh');
     }
-    
-    
   /*----------------------------------------------------------------------------*/
  /*----------------------------Page Ajout Réservation--------------------------*/
 /*----------------------------------------------------------------------------*/
