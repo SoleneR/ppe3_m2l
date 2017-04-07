@@ -75,8 +75,23 @@ class PdoM2l{
     $stm->bindParam(':idReservation',$idReservation);
     return $stm->execute();
     }
+	    
+	public function majReservation($idReservation,$start,$end,$nom,$user,$description,$type,$statut){
+    $req = "update mrbs_entry inner join mrbs_room on mrbs_entry.room_id=mrbs_room.id set start_time = :start_time,end_time = :end_time, name = :name ,create_by = :create_by, mrbs_entry.description = :description, type = :type, status = :status  where mrbs_entry.id  = :idReservation";
+    $stm = self::$monPdo->prepare($req);
+    $stm->bindParam(':idReservation', $idReservation);
+    $stm->bindParam(':start_time', $start);
+    $stm->bindParam(':end_time', $end);
+    $stm->bindParam(':name', $nom); 
+    $stm->bindParam(':create_by', $user); 
+    $stm->bindParam(':description', $description); 
+    $stm->bindParam(':type', $type); 
+    $stm->bindParam(':status', $statut); 
+    return $stm->execute();
+                 
+    } 
     
-     public function getEvenement($id_salle, $dateJour) //page agendaJour
+    public function getEvenement($id_salle, $dateJour) //page agendaJour
     {
         $jour = strtotime("$dateJour,00:0:0");
         $req = "SELECT name, :jour, description, start_time, end_time, (start_time-:jour) as heure_debut_stamp,(end_time-:jour) as heure_fin_stamp,
@@ -97,7 +112,7 @@ class PdoM2l{
     }
     
     public function getLesReservations($name){
-    $req = "select mrbs_entry.id,name, mrbs_entry.description, FROM_UNIXTIME(start_time) start_datetime,FROM_UNIXTIME(end_time) end_datetime,create_by from mrbs_entry inner join mrbs_room on mrbs_entry.room_id=mrbs_room.id where name like '" . $name ."%' ";
+    $req = "select mrbs_entry.id,name, mrbs_entry.description, FROM_UNIXTIME(start_time) start_datetime,FROM_UNIXTIME(end_time) end_datetime,create_by from mrbs_entry inner join mrbs_room on mrbs_entry.room_id=mrbs_room.id where name like '%" . $name ."%' OR mrbs_entry.description like '%" .$name."%'";
     $rs = self::$monPdo->query($req);
     $lesLignes = $rs->fetchAll();
     return $lesLignes;
@@ -111,12 +126,6 @@ class PdoM2l{
     $laLigne = $stm->fetch();
     return $laLigne;
     }
-    
-    
-    
- 
-
-
     
 }
 ?>
