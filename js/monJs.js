@@ -1,4 +1,4 @@
-function clearBox(elementClass)
+function clearBox(elementClass)     //azerty
 {
     document.getElementsByClassName(elementClass).innerHTML = "";
 }
@@ -117,7 +117,7 @@ $("#pageAgendaJour").ready(function()
                     //console.log(heure_fin);
         }
     }
-    
+
     
   /*----------------------------------------------------------------------------*/
  /*----------------------------Page Ajout Réservation--------------------------*/
