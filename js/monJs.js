@@ -1,4 +1,7 @@
 $(function(){
+    window.dateJour     = "";
+    window.nom_salle    = "";
+    window.id_salle     = "";
     /*-----------------------Page connexion----------------------------------*/
     $('#pageConnexion #btnconnexion').bind("click", function(e) {
             e.preventDefault();
@@ -61,11 +64,10 @@ $("#pageAgendaJour").ready(function()
             html += "<option value='" + id_salle + "' id='" + id_salle + "'>" + nom_salle + "</option>"
         } 
         $('#pageAgendaJour #listeSalles').append(html);
-        $('#pageAgendaJour #listeSalles').refresh;
+        $('#pageAgendaJour #listeSalles').listview('refresh');
     }
     
     /*-----------------------Affichage Evenements Jour ----------------------------------*/
-    
     
     $('#pageAgendaJour #listeSalles').bind("click",function(e)
     {
@@ -107,11 +109,10 @@ $("#pageAgendaJour").ready(function()
             
         }
         
-        $("#pageAgendaJour #9h00").append(html);
-        $("#pageAgendaJour #listeSalles").listview('refresh');
-        $('#pageAgendaJour #listeEvenements').listview('refresh');
+        //$("#pageAgendaJour #9h00").append(html);
+        //$("#pageAgendaJour #listeSalles").listview('refresh');
+        //$('#pageAgendaJour #listeEvenements').listview('refresh');
     }
-    
   /*----------------------------------------------------------------------------*/
  /*----------------------------Page Ajout Réservation--------------------------*/
 /*----------------------------------------------------------------------------*/
@@ -181,8 +182,6 @@ $("#pageAgendaJour").ready(function()
     $("#pageVoirReservations #listeReservations").on("click","li", function(e) { 
         var idReservation = $(this).attr('id'); 
         window.idReservation = idReservation;
-//        var reservation =  $("#pageVoirReservations #listeReservations");
-//        reservation.val($(this).text()); 
         $.post("ajax/traiterReservation.php",{
              "idReservation" : window.idReservation },
              foncRetourChoixRapport,"json" );
@@ -319,14 +318,5 @@ $("#pageAgendaJour").ready(function()
         $.mobile.changePage("#pageAgendaJour");
         
     }
-     
         
-       
-        
-   
-    
-    
-    
-    
-    
 });

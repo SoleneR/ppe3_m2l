@@ -76,7 +76,7 @@ class PdoM2l{
     return $stm->execute();
     }
     
-     public function getEvenement($id_salle, $dateJour) //page agendaJour
+    public function getEvenement($id_salle, $dateJour) //page agendaJour
     {
         $jour = strtotime("$dateJour,00:0:0");
         $req = "SELECT name, :jour, description, start_time, end_time, (start_time-:jour) as heure_debut_stamp,(end_time-:jour) as heure_fin_stamp,
