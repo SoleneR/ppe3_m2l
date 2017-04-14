@@ -48,6 +48,18 @@ class PdoM2l{
         $lesSalles = $stm->fetchAll();
         return $lesSalles;
     }
+    
+    public function verifAddReservation($start_time,$end_time,$room_id)
+    {
+        $req = "select mrbs_entry.id, DATE_FORMAT(FROM_UNIXTIME(start_time),'%d/%m/%Y %H:%i:%s') as start_time,DATE_FORMAT(FROM_UNIXTIME(end_time),'%Y/%m/%d %H:%i:%s') as end_time from mrbs_entry where room_id = :room_id AND start_time between  :start_time AND end_time AND end_time between :start_time AND :end_time";
+        $stm = self::$monPdo->prepare($req);
+        $stm->bindParam(':start_time', $start_time);
+        $stm->bindParam(':end_time', $end_time); 
+        $stm->bindParam(':room_id', $room_id);
+        $stm->execute();
+        $uneReservation = $stm->fetchAll();
+        return $uneReservation;
+    }
 	
     public function addReservation($start_time,$end_time,$room_id,$name,$types,$description,$statut){
     $req = "insert into mrbs_entry (start_time,end_time,room_id,create_by,name,type,description,status) values (:start_time,:end_time,:room_id,'admin',:name,:types,:description,:statut)" ;
@@ -112,14 +124,14 @@ class PdoM2l{
     }
     
     public function getLesReservations($name){
-    $req = "select mrbs_entry.id,name, mrbs_entry.description, FROM_UNIXTIME(start_time) start_datetime,FROM_UNIXTIME(end_time) end_datetime,create_by from mrbs_entry inner join mrbs_room on mrbs_entry.room_id=mrbs_room.id where name like '%" . $name ."%' OR mrbs_entry.description like '%" .$name."%'";
+    $req = "select mrbs_entry.id,name, mrbs_entry.description, DATE_FORMAT(FROM_UNIXTIME(start_time),'%Y/%m/%d %H:%i:%s') start_datetime,DATE_FORMAT(FROM_UNIXTIME(end_time),'%Y/%m/%d %H:%i:%s') end_datetime,create_by from mrbs_entry inner join mrbs_room on mrbs_entry.room_id=mrbs_room.id where name like '%" . $name ."%' OR mrbs_entry.description like '%" .$name."%'";
     $rs = self::$monPdo->query($req);
     $lesLignes = $rs->fetchAll();
     return $lesLignes;
     }
     
     public function getLaReservation($idReservation){
-    $req = "select mrbs_entry.id,name, mrbs_entry.description, FROM_UNIXTIME(start_time) as start,FROM_UNIXTIME(end_time) as end,room_name,create_by,type,status from mrbs_entry inner join mrbs_room on mrbs_entry.room_id=mrbs_room.id where mrbs_entry.id  = :idReservation" ; 
+    $req = "select mrbs_entry.id,name, mrbs_entry.description, DATE_FORMAT(FROM_UNIXTIME(start_time),'%Y/%m/%d %H:%i:%s') as start,DATE_FORMAT(FROM_UNIXTIME(end_time),'%Y/%m/%d %H:%i:%s') as end,room_name,create_by,type,status from mrbs_entry inner join mrbs_room on mrbs_entry.room_id=mrbs_room.id where mrbs_entry.id  = :idReservation" ; 
     $stm = self::$monPdo->prepare($req);
     $stm->bindParam(':idReservation', $idReservation);
     $stm->execute();

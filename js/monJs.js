@@ -123,42 +123,62 @@ $("#pageAgendaJour").ready(function()
  /*----------------------------Page Ajout Réservation--------------------------*/
 /*----------------------------------------------------------------------------*/
     
-    $('#pageAjoutReserv #btnEnregistrerAjout').bind("click",function(e) {
+    $('#pageAjoutReserv #btnEnregistrerAjout').bind("click",function(e) {        
         var start_date = $("#pageAjoutReserv #jdebut").val();
         var end_date = $("#pageAjoutReserv #jfin").val();
         var start_time = $("#pageAjoutReserv #start_time").val();
         var end_time = $("#pageAjoutReserv #end_time").val();
         var room_id = $("#pageAjoutReserv #salle").val();
-        var name = $("#pageAjoutReserv #name").val();
-        var types = $("#pageAjoutReserv #types").val();
-        var description = $("#pageAjoutReserv #description").val();
-        var statut = $("#pageAjoutReserv #statut").val();
-        $.post("ajax/traiterAjoutReservation.php", {
+        $.post("ajax/traiterVerifReservation.php", {
             "start_date" : start_date,
             "end_date" : end_date,
             "start_time" : start_time,
             "end_time" : end_time,
-            "room_id" : room_id,
-            "name" : name,
-            "types" : types,
-            "description" : description,
-            "statut" : statut},
+            "room_id" : room_id},
             foncRetourArgument,"json");
         });
         
-
 		
         function foncRetourArgument(data){
-            if(data == 1)
+            if(data != '')
             {
-                alert("Enregistrement effectué");
+                alert('La réservation demandée existe déjà');
             }
             else
             {
-                alert("erreur");
+                var start_date = $("#pageAjoutReserv #jdebut").val();
+            var end_date = $("#pageAjoutReserv #jfin").val();
+            var start_time = $("#pageAjoutReserv #start_time").val();
+            var end_time = $("#pageAjoutReserv #end_time").val();
+            var room_id = $("#pageAjoutReserv #salle").val();
+            var name = $("#pageAjoutReserv #name").val();
+            var types = $("#pageAjoutReserv #types").val();
+            var description = $("#pageAjoutReserv #description").val();
+            var statut = $("#pageAjoutReserv #statut").val();
+            $.post("ajax/traiterAjoutReservation.php", {
+                "start_date" : start_date,
+                "end_date" : end_date,
+                "start_time" : start_time,
+                "end_time" : end_time,
+                "room_id" : room_id,
+                "name" : name,
+                "types" : types,
+                "description" : description,
+                "statut" : statut},
+                foncAjoutArgument,"json");
             }
             
         }
+        
+        function foncAjoutArgument(data){
+            if(data != '')
+            {
+                alert("Enregitrement effectué");
+            }
+        }
+ 
+        
+
         
          /*----------------------------------------------------------------------------*/
  /*----------------------------Page Recherche Réservation----------------------*/
@@ -182,7 +202,7 @@ $("#pageAgendaJour").ready(function()
                  html +="<li id=" + id +"><input type='hidden' value ="+name+"><a href ='#' >Nom " + name + "  Description: " + description;
                  html +="</a></li>";    
             }
-        $("#pageVoirReservations #listeReservations").html( html );
+        $("#pageVoirReservations #listeReservations").html(html);
         $("#pageVoirReservations #listeReservations").listview( "refresh" );      
     }
 
